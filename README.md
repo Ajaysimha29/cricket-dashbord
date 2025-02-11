@@ -99,7 +99,6 @@ After setting up the dependencies and datasets:
 #Demo
 
 ## License
-![Screenshot (105)](https://github.com/user-attachments/assets/43934f8d-7dbb-4d21-a420-043f7ae8c1e4)
 
 This project is open-source and available under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
