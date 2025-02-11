@@ -96,8 +96,10 @@ After setting up the dependencies and datasets:
 - **Sidebar**: Choose the analysis tab and select your preferred color theme (Light, Dark, or Kickass).
 - **Charts**: Interactive visualizations for various cricket metrics like runs, wickets, player performance, and match outcomes.
 - **Download Data**: Download raw dataset CSV files directly from the sidebar for further exploration.
+#Demo
 
 ## License
+![Screenshot (105)](https://github.com/user-attachments/assets/43934f8d-7dbb-4d21-a420-043f7ae8c1e4)
 
 This project is open-source and available under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
