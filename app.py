@@ -57,24 +57,7 @@ with st.sidebar:
         }
     )
 
-# 📌 Theme selection in Sidebar with scrollable dropdown
-theme_options = ["light", "dark", "coola", "shlobe lookkickass"]
-theme_option = st.sidebar.selectbox("Select Theme", theme_options)
 
-# Function to load the selected theme
-def load_theme(theme_name):
-    # Path to the .streamlit folder containing your theme files
-    theme_file_path = os.path.join(".streamlit", f"{theme_name}.toml")
-    
-    # Check if the file exists and then load the selected theme
-    if os.path.exists(theme_file_path):
-        with open(theme_file_path, "r") as f:
-            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-    else:
-        st.warning(f"Theme {theme_name} not found. Please ensure the theme .toml file is in the .streamlit folder.")
-
-# Apply selected theme
-load_theme(theme_option)
 
 # Function to save plotly figures as images
 def save_fig_as_image(fig):
@@ -339,15 +322,10 @@ if selected == "Cricket Quiz":
 elif selected == "Memes & GIFs":
     st.title("😂 Fun Cricket Memes and GIFs")
     meme_urls = [
-        "https://i.pinimg.com/originals/9f/f1/39/9ff139fbd62cc2403b04c670d840a589.jpg",  # Virat Kohli meme
-        "https://media.giphy.com/media/26AOVGjbA3yWBu8kI/giphy.gif",  # Sachin Tendulkar meme
-        "https://media.giphy.com/media/l0MYNp5IgQFE7jT2s/giphy.gif",  # Funny celebration GIF
-        "https://media.giphy.com/media/l378uL6lQJYNTXjVE/giphy.gif",  # Dhoni Helicopter shot GIF
-        "https://media.giphy.com/media/3o6fJ6WZxzfnIn6Ody/giphy.gif",  # Cricket ball hitting stumps GIF
-        "https://media.giphy.com/media/26gssxO1Fvx0fgTkU/giphy.gif",  # Batting swing GIF
-        "https://media.giphy.com/media/3o6Mbu5PQ3wpGg0Kj6/giphy.gif",  # Wicket falling GIF
-        "https://media.giphy.com/media/3o6Zt9ps6F6V6pcFIs/giphy.gif",  # Umpire signal GIF
-        "https://media.giphy.com/media/26xBzkj8m1caIh64E/giphy.gif",  # Crowd cheering GIF
+        #"https://media1.tenor.com/m/dq4CBxSKxawAAAAd/striker-saini.gif"  # Cricket batsman hit
+        "https://media1.tenor.com/m/DEiXgXvrHzgAAAAC/dhoni-gif.gif",  # Umpire gesture
+        #"https://media1.tenor.com/m/uhmCKHPRp_oAAAAC/risers-with-buland-soch-cricket.gif",  # Players hugging
+        "https://media1.tenor.com/m/l1iKhSUAdRoAAAAC/cheating-at-cricket-do-not-scratch-your-balls.gif",  # Cricket catch
     ]
 
     # Display memes/GIFs in a grid layout for better presentation
