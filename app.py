@@ -44,8 +44,8 @@ with st.sidebar:
     st.markdown("## Cricket Analytics Dashboard")
     selected = option_menu(
         menu_title=None,  # Remove default title
-        options=["IPL Analysis", "World Cup Batting", "World Cup Bowling", "Match Analysis", "Cricket Quiz", "Memes & GIFs"],
-        icons=["graph-up", "trophy", "baseball", "bar-chart", "gamepad", "image"],  # Add corresponding icons
+        options=["Home","IPL Analysis", "World Cup Batting", "World Cup Bowling", "Match Analysis", "Cricket Quiz", "Memes & GIFs"],
+        icons=["house","graph-up", "trophy", "baseball", "bar-chart", "gamepad", "image"],  # Add corresponding icons
         menu_icon="cast",  # Overall menu icon
         default_index=0,  # Default selected page
         orientation="vertical",  # Vertical menu
@@ -66,17 +66,68 @@ def save_fig_as_image(fig):
     img_bytes.seek(0)
     return img_bytes
 
+if selected == "Home":
+    st.title("🏏 Cricket Analytics Dashboard")
+    
+    # Add a banner image or background
+    st.image("https://wallpapercave.com/wp/wp6194569.jpg", use_container_width=True)
+
+    # Section title
+    st.subheader("Welcome to the Cricket Analytics Dashboard! 🎉")
+
+    st.markdown("""
+    This dashboard offers **insightful analytics and visualizations** on various aspects of cricket. 🚀 Dive into the following sections:
+    
+    🏆 **IPL Analysis**:  
+    - Analyze the **distribution of IPL player sold prices** and explore **total spending by IPL teams**.  
+    - Visualize key data for an in-depth understanding of the IPL auctions.
+    
+    🏅 **World Cup Batting**:  
+    - Explore **batting statistics** of players from **World Cup 2023**. Find out who scored the most and what contributed to their performance.
+    
+    🎯 **World Cup Bowling**:  
+    - Uncover the best **bowling performances** in the **World Cup 2023**. See how bowlers dominated the field with wickets and economy rates.
+    
+    🏏 **Match Analysis**:  
+    - Delve into **detailed match statistics**, analyze match outcomes, and visualize game trends.
+    
+    🎮 **Cricket Quiz**:  
+    - Test your **cricket knowledge** with a fun, interactive quiz! 🧠 
+    - Answer trivia questions and prove your expertise.
+    
+    😂 **Memes & GIFs**:  
+    - Enjoy **cricket-related memes and GIFs** for a fun break! It's a great way to relax between stats. 🎉
+    
+    ## 📊 Data Sources:
+    The data used in this dashboard comes from multiple cricket datasets, including:
+    - IPL player data
+    - World Cup 2023 statistics (batting & bowling)
+    - Player information
+    - And more...
+    
+    **Get ready to explore and analyze cricket data like never before!**
+    """)
+
+    # Add a fun button to start exploring
+    if st.button("Start Exploring! 🚀"):
+        st.write("Great! Let's get started with IPL Analysis!")
+
+
 # IPL Analysis
 if selected == "IPL Analysis":
     st.title("📊 IPL Analytics")
     st.subheader("Player Sold Prices")
     fig1 = px.histogram(data["ipl"], x="SOLD_PRICE", nbins=20, title="Distribution of IPL Player Sold Prices")
     st.plotly_chart(fig1)
+
     
+
     st.subheader("Total Spending by Teams")
     team_spending = data["ipl"].groupby("TEAM")["SOLD_PRICE"].sum().reset_index()
     fig2 = px.bar(team_spending, x="TEAM", y="SOLD_PRICE", title="Total Spending by IPL Teams", color="TEAM")
     st.plotly_chart(fig2)
+    
+
 
     # Additional IPL Insights
     #st.subheader("Top 5 Expensive Players")
