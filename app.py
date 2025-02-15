@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import os
+import matplotlib.pyplot as plt
+import seaborn as sns
 import plotly.io as pio
 from io import BytesIO
 import random
@@ -37,26 +39,52 @@ def load_data():
 
 data = load_data()
 
-# Sidebar - Select analysis
+# Correct dataset reference
+ipl = data["ipl"]
 
 # Sidebar - Select analysis
 with st.sidebar:
-    st.markdown("## Cricket Analytics Dashboard")
+    st.markdown("## 🏏 Cricket Analytics Dashboard")
     selected = option_menu(
         menu_title=None,  # Remove default title
-        options=["Home","IPL Analysis", "World Cup Batting", "World Cup Bowling", "Match Analysis", "Cricket Quiz", "Memes & GIFs"],
-        icons=["house","graph-up", "trophy", "baseball", "bar-chart", "gamepad", "image"],  # Add corresponding icons
+        options=[
+            "Home",
+            "IPL Analysis",
+            "World Cup Batting",
+            "World Cup Bowling",
+            "Match Analysis",
+            "Cricket Quiz",
+            "Memes & GIFs",
+            "Player Performance Correlation",
+            "Visualized Story"
+        ],
+        icons=[
+            "house",  # Home
+            "graph-up",  # IPL Analysis
+            "trophy",  # World Cup Batting
+            "activity",  # World Cup Bowling
+            "bar-chart",  # Match Analysis
+            "controller",  # Cricket Quiz
+            "image",  # Memes & GIFs
+            "diagram-3",  # Player Performance Correlation (Added icon)
+            "book"  # Visualized Story (Added icon)
+        ],
         menu_icon="cast",  # Overall menu icon
         default_index=0,  # Default selected page
         orientation="vertical",  # Vertical menu
         styles={
-            "container": {"padding": "5px", "background-color": "#f0f0f5"},  # Style container
+            "container": {"padding": "5px", "background-color": "#f0f0f5"},  # Sidebar background
             "icon": {"font-size": "18px"},  # Icon size
-            "nav-link": {"font-size": "16px", "text-align": "left", "padding": "8px", "color": "black", "hover-color": "#58a6ff"},  # Link styles
+            "nav-link": {
+                "font-size": "16px",
+                "text-align": "left",
+                "padding": "8px",
+                "color": "black",
+                "hover-color": "#58a6ff"
+            },  # Link styles
             "nav-link-selected": {"background-color": "#58a6ff"},  # Selected link style
         }
     )
-
 
 
 # Function to save plotly figures as images
@@ -66,74 +94,94 @@ def save_fig_as_image(fig):
     img_bytes.seek(0)
     return img_bytes
 
+
+
+
+
 if selected == "Home":
-    st.title("🏏 Cricket Analytics Dashboard")
-    
-    # Add a banner image or background
+    # Page Title with Emoji
+    st.markdown("<h1 style='text-align: center; color: #ff4b4b; font-size: 50px;'>🏏 Cricket Analytics Dashboard</h1>", unsafe_allow_html=True)
+     # Define page background image with CSS
+    page_element = """
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-image: url("https://i0.wp.com/wallpaperxyz.com/wp-content/uploads/Gif-Animated-Wallpaper-Background-Full-HD-Free-Download-for-PC-Macbook-261121-Wallpaperxyz.com-19.gif");
+        background-size: cover;
+    }
+    </style>
+    """
+    st.markdown(page_element, unsafe_allow_html=True)
+
+    # Banner Image (Full Width)
     st.image("https://wallpapercave.com/wp/wp6194569.jpg", use_container_width=True)
 
-    # Section title
-    st.subheader("Welcome to the Cricket Analytics Dashboard! 🎉")
-
+    # Welcome Message with Larger Font
     st.markdown("""
-    This dashboard offers **insightful analytics and visualizations** on various aspects of cricket. 🚀 Dive into the following sections:
-    
-    🏆 **IPL Analysis**:  
-    - Analyze the **distribution of IPL player sold prices** and explore **total spending by IPL teams**.  
-    - Visualize key data for an in-depth understanding of the IPL auctions.
-    
-    🏅 **World Cup Batting**:  
-    - Explore **batting statistics** of players from **World Cup 2023**. Find out who scored the most and what contributed to their performance.
-    
-    🎯 **World Cup Bowling**:  
-    - Uncover the best **bowling performances** in the **World Cup 2023**. See how bowlers dominated the field with wickets and economy rates.
-    
-    🏏 **Match Analysis**:  
-    - Delve into **detailed match statistics**, analyze match outcomes, and visualize game trends.
-    
-    🎮 **Cricket Quiz**:  
-    - Test your **cricket knowledge** with a fun, interactive quiz! 🧠 
-    - Answer trivia questions and prove your expertise.
-    
-    😂 **Memes & GIFs**:  
-    - Enjoy **cricket-related memes and GIFs** for a fun break! It's a great way to relax between stats. 🎉
-    
-    ## 📊 Data Sources:
-    The data used in this dashboard comes from multiple cricket datasets, including:
-    - IPL player data
-    - World Cup 2023 statistics (batting & bowling)
-    - Player information
-    - And more...
-    
-    **Get ready to explore and analyze cricket data like never before!**
-    """)
+        <h2 style='text-align: center; color: #f39c12;'>Welcome to the Cricket Analytics Dashboard! 🎉</h2>
+        <p style='text-align: center; font-size: 20px;'>Discover exciting cricket statistics, insights, and fun activities! 🚀</p>
+    """, unsafe_allow_html=True)
 
-    # Add a fun button to start exploring
-    if st.button("Start Exploring! 🚀"):
-        st.write("Great! Let's get started with IPL Analysis!")
+    # Features Section with Icons and Bold Styling
+    st.markdown("""
+        <h2 style='color: #3498db;'>🔍 Explore Cricket Insights:</h2>
+        <ul style="font-size: 18px; line-height: 1.8;">
+            <li>🏆 <b>IPL Analysis:</b> Player prices, team spending & auction trends.</li>
+            <li>🏅 <b>World Cup Batting:</b> Top scorers & batting performance insights.</li>
+            <li>🎯 <b>World Cup Bowling:</b> Best bowlers, wickets & economy rates.</li>
+            <li>🏏 <b>Match Analysis:</b> In-depth match statistics & trends.</li>
+            <li>🎮 <b>Cricket Quiz:</b> Test your knowledge with interactive trivia! 🧠</li>
+            <li>😂 <b>Memes & GIFs:</b> Enjoy cricket memes for a fun break! 🎉</li>
+        </ul>
+    """, unsafe_allow_html=True)
+
+    # Data Sources Section
+    st.markdown("""
+        <h2 style='color: #e67e22;'>📊 Data Sources:</h2>
+        <ul style="font-size: 18px; line-height: 1.8;">
+            <li>IPL Player Data</li>
+            <li>World Cup 2023 Statistics (Batting & Bowling)</li>
+            <li>Player Performance Metrics</li>
+            <li>Historical Match Records</li>
+        </ul>
+        <p style="font-size: 18px;"><b>Get ready to explore cricket data like never before! 🏏🚀</b></p>
+    """, unsafe_allow_html=True)
+
+    # Start Exploring Button
+    if st.button("🔥 Start Exploring Now! 🚀"):
+        st.write("Awesome! Let's dive into the IPL Analysis!")
 
 
+
+
+
+
+
+#st.markdown(page_element, unsafe_allow_html=True)
 # IPL Analysis
 if selected == "IPL Analysis":
     st.title("📊 IPL Analytics")
+    
+    # Define page background image with CSS
+    page_element = """
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
+        background-size: cover;
+    }
+    </style>
+    """
+    st.markdown(page_element, unsafe_allow_html=True)
+
+    # IPL Analysis: Player Sold Prices
     st.subheader("Player Sold Prices")
     fig1 = px.histogram(data["ipl"], x="SOLD_PRICE", nbins=20, title="Distribution of IPL Player Sold Prices")
     st.plotly_chart(fig1)
 
-    
-
+    # IPL Analysis: Total Spending by Teams
     st.subheader("Total Spending by Teams")
     team_spending = data["ipl"].groupby("TEAM")["SOLD_PRICE"].sum().reset_index()
     fig2 = px.bar(team_spending, x="TEAM", y="SOLD_PRICE", title="Total Spending by IPL Teams", color="TEAM")
     st.plotly_chart(fig2)
-    
-
-
-    # Additional IPL Insights
-    #st.subheader("Top 5 Expensive Players")
-    #top_expensive_players = data["ipl"].nlargest(5, "SOLD_PRICE")[["PLAYER", "SOLD_PRICE"]]
-    #fig3 = px.bar(top_expensive_players, x="PLAYER", y="SOLD_PRICE", title="Top 5 Expensive IPL Players", color="PLAYER")
-    #st.plotly_chart(fig3)
 
     # Download button for IPL dataset
     st.sidebar.download_button(
@@ -158,10 +206,19 @@ if selected == "IPL Analysis":
         mime="image/png"
     )
 
-
 # World Cup Batting Analysis
 elif selected == "World Cup Batting":
     st.title("🏏 World Cup Batting Analysis")
+        # Define page background image with CSS
+    page_element = """
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
+        background-size: cover;
+    }
+    </style>
+    """
+    st.markdown(page_element, unsafe_allow_html=True)
     st.subheader("Runs vs Strike Rate")
     fig4 = px.scatter(data["bat"], x="RUNS", y="STRICK RATE", color="BATTING_TEAM", hover_data=["BATTING"], title="Runs vs Strike Rate")
     st.plotly_chart(fig4)
@@ -175,6 +232,17 @@ elif selected == "World Cup Batting":
     #top_run_scorers = data["bat"].nlargest(5, "RUNS")[["BATTING", "RUNS"]]
     #fig6 = px.bar(top_run_scorers, x="BATTING", y="RUNS", title="Top 5 Run Scorers in WC", color="BATTING")
     #st.plotly_chart(fig6)
+     
+    
+    st.subheader("Four and Sixes")
+
+# Creating a 3D scatter plot
+    fig = px.scatter_3d(data["bat"], x="RUNS", y="FOURS", z="SIXES", 
+                     color="BATTING_TEAM", hover_data=["BATTING"],
+                     title="Runs vs Fours vs Sixes by Players")
+
+# Displaying the figure in Streamlit
+    st.plotly_chart(fig)
 
     # Download button for Batting dataset
     st.sidebar.download_button(
@@ -202,6 +270,16 @@ elif selected == "World Cup Batting":
 # World Cup Bowling Analysis
 elif selected == "World Cup Bowling":
     st.title("🎯 World Cup Bowling Analysis")
+        # Define page background image with CSS
+    page_element = """
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
+        background-size: cover;
+    }
+    </style>
+    """
+    st.markdown(page_element, unsafe_allow_html=True)
     st.subheader("Average Economy Rate by Team")
     economy = data["bow"].groupby("BOWLING_TEAM")["ECONOMY"].mean().reset_index()
     fig7 = px.bar(economy, x="BOWLING_TEAM", y="ECONOMY", title="Average Economy Rate by Team", color="BOWLING_TEAM")
@@ -251,6 +329,16 @@ elif selected == "World Cup Bowling":
 # Match Analysis
 elif selected == "Match Analysis":
     st.title("🏆 World Cup Match Analysis")
+        # Define page background image with CSS
+    page_element = """
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
+        background-size: cover;
+    }
+    </style>
+    """
+    st.markdown(page_element, unsafe_allow_html=True)
     st.subheader("World Cup Wins by Team")
     team_wins = data["matches"]["Winner"].value_counts()
     fig10 = px.pie(names=team_wins.index, values=team_wins.values, title="World Cup Wins by Teams")
@@ -309,10 +397,23 @@ elif selected == "Match Analysis":
         file_name="matches_played_over_time.png",
         mime="image/png"
     )
-# Cricket Quiz Game
+
+
+
+
 # Cricket Quiz Game
 def cricket_quiz():
     st.title("🎮 Cricket Quiz Game")
+        # Define page background image with CSS
+    page_element = """
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
+        background-size: cover;
+    }
+    </style>
+    """
+    st.markdown(page_element, unsafe_allow_html=True)
     st.subheader("Test Your Knowledge")
 
     # Initialize session state for tracking answers, score, and question index
@@ -366,17 +467,30 @@ def cricket_quiz():
             st.session_state.question_index = 0
             st.experimental_rerun()  # Re-run to reset the quiz state
 
+
+
+
 # Use the function to handle the "Cricket Quiz" section
 if selected == "Cricket Quiz":
     cricket_quiz()
 # Fun Cricket Memes and GIFs
 elif selected == "Memes & GIFs":
     st.title("😂 Fun Cricket Memes and GIFs")
+        # Define page background image with CSS
+    page_element = """
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
+        background-size: cover;
+    }
+    </style>
+    """
+    st.markdown(page_element, unsafe_allow_html=True)
     meme_urls = [
         #"https://media1.tenor.com/m/dq4CBxSKxawAAAAd/striker-saini.gif"  # Cricket batsman hit
         "https://media1.tenor.com/m/DEiXgXvrHzgAAAAC/dhoni-gif.gif",  # Umpire gesture
         #"https://media1.tenor.com/m/uhmCKHPRp_oAAAAC/risers-with-buland-soch-cricket.gif",  # Players hugging
-        "https://media1.tenor.com/m/l1iKhSUAdRoAAAAC/cheating-at-cricket-do-not-scratch-your-balls.gif",  # Cricket catch
+        #"https://media1.tenor.com/m/l1iKhSUAdRoAAAAC/cheating-at-cricket-do-not-scratch-your-balls.gif",  # Cricket catch
     ]
 
     # Display memes/GIFs in a grid layout for better presentation
@@ -385,3 +499,202 @@ elif selected == "Memes & GIFs":
         with cols[i % 3]:  # Place each item in a column
             st.image(url, use_container_width=True)
 
+
+
+
+ #Player Performance Correlation
+elif selected == "Player Performance Correlation":
+
+    st.title("📊 Player Performance Correlation")
+        # Define page background image with CSS
+    page_element = """
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
+        background-size: cover;
+    }
+    </style>
+    """
+    st.markdown(page_element, unsafe_allow_html=True)
+    # Create Age vs Runs Scored plot using Plotly
+    st.subheader('Age vs Runs Scored')
+    fig1 = px.scatter(ipl, x='AGE', y='Runs', color='TEAM', title='Age vs Runs Scored', 
+                      labels={'AGE': 'Age', 'Runs': 'Runs Scored'}, 
+                      color_discrete_sequence=px.colors.qualitative.Set1)
+    st.plotly_chart(fig1)
+
+    # Create Paying Role vs Sold Price box plot using Plotly
+    st.subheader('Paying Role vs Sold Price')
+    fig2 = px.box(ipl, x='Paying_Role', y='SOLD_PRICE', title='Paying Role vs Sold Price', 
+                  labels={'Paying_Role': 'Paying Role', 'SOLD_PRICE': 'Sold Price'}, 
+                  color='Paying_Role', color_discrete_sequence=px.colors.qualitative.Set2)
+    fig2.update_layout(xaxis_tickangle=-45)  # Rotate x-axis labels for better readability
+    st.plotly_chart(fig2)
+
+    # Download button for Player Correlation Data
+    st.sidebar.download_button(
+        label="Download Player Correlation Data",
+        data=ipl.to_csv(index=False),
+        file_name="player_correlation_data.csv",
+        mime="text/csv"
+    )
+
+    # Function to save Plotly figures as images
+    def save_fig_as_image(fig):
+        img_bytes = BytesIO()
+        pio.write_image(fig, img_bytes, format='png')
+        img_bytes.seek(0)
+        return img_bytes
+
+    # Download Figures as images
+    st.sidebar.download_button(
+        label="Download Age vs Runs Chart",
+        data=save_fig_as_image(fig1),
+        file_name="age_vs_runs.png",
+        mime="image/png"
+    )
+
+    st.sidebar.download_button(
+        label="Download Paying Role vs Sold Price Chart",
+        data=save_fig_as_image(fig2),
+        file_name="paying_role_vs_sold_price.png",
+        mime="image/png"
+    )
+
+
+
+
+# Visualized Story
+elif selected == "Visualized Story":
+    st.title("📖 Cricket Data Story: The Boy Who Discovered the Magic of Cricket 🏏")
+        # Define page background image with CSS
+    page_element = """
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
+        background-size: cover;
+    }
+    </style>
+    """
+    st.markdown(page_element, unsafe_allow_html=True)
+
+    # Introduction
+    st.markdown("""
+        ## The Curious Journey of a Young Cricket Enthusiast 🌱
+        Once upon a time, there was a boy named Rohan. He had heard about cricket but never understood the magic behind it. One day, he stumbled upon some cricket data, and his journey of discovery began. Let's dive into his adventure!
+    """)
+
+    # 1. Rohan Discovers IPL Auctions 💰
+    st.header("💰 IPL Auctions: Rohan's First Glimpse into the Strategy of Teams")
+    st.markdown("""
+        Rohan was fascinated by how IPL teams bid for players. He started analyzing the data and discovered some interesting trends. Some teams spent big, while others were more conservative. What could this mean? Was there a strategy behind this spending? 🤔
+    """)
+    
+    team_spending = data["ipl"].groupby("TEAM")["SOLD_PRICE"].sum().reset_index()
+    fig_ipl_spending = px.bar(team_spending, x="TEAM", y="SOLD_PRICE", title="Total Spending by IPL Teams", color="TEAM")
+    st.plotly_chart(fig_ipl_spending)
+
+    st.markdown("""
+        **Key Takeaway:** Rohan noticed that teams like Mumbai Indians and Chennai Super Kings spent a lot, while others took a more balanced approach. It was clear that team strategies and budget management played a big role in IPL success. 💡
+
+        **Interactive Insight:** Hover over the bars to see the exact spending for each team. What do you think? Which teams do you believe have the best spending strategies?
+    """)
+
+    # 2. Batting Brilliance: Rohan Becomes a Fan of the Power Hitters 🏏
+    st.header("🏏 Batting Brilliance: Rohan's Deep Dive into Runs and Strike Rates")
+    st.markdown("""
+        As Rohan explored more cricket data, he got curious about the batsmen's performance. He wanted to understand how runs and strike rates correlated. Was a higher strike rate always a good sign? Let's see what he found out!
+    """)
+    
+    fig_batting_runs_strike = px.scatter(data["bat"], x="RUNS", y="STRICK RATE", color="BATTING_TEAM", hover_data=["BATTING"], title="Runs vs Strike Rate")
+    st.plotly_chart(fig_batting_runs_strike)
+
+    st.markdown("""
+        **Rohan's Discovery:** He learned that high runs and strike rates made some players stand out as game-changers. But not all the time – some players played steadily, focusing on partnerships and innings stability. **Which player do you think is the most efficient?**
+    """)
+
+    # 3. Bowling: Rohan Decodes Team Strategies 🎯
+    st.header("🎯 Bowling Mastery: How Teams Control the Game")
+    st.markdown("""
+        Rohan's next discovery was about bowling. He wanted to figure out how bowling economy rates could influence a team's success. Were the most successful teams the ones with the best bowlers? Let's find out!
+    """)
+    
+    economy = data["bow"].groupby("BOWLING_TEAM")["ECONOMY"].mean().reset_index()
+    fig_bowling_economy = px.bar(economy, x="BOWLING_TEAM", y="ECONOMY", title="Average Economy Rate by Team", color="BOWLING_TEAM")
+    st.plotly_chart(fig_bowling_economy)
+
+    st.markdown("""
+        **Rohan's Insight:** A lower economy rate indicated that teams were controlling the game, keeping the opposition's runs in check. Teams with the best bowlers often had the most success! 🏆
+
+        **Quiz Time:** Which team do you think has the best bowling attack based on the economy rate? Drop your guesses below!
+    """)
+
+    # 4. The Battle of Wins: Rohan Follows the Winning Streaks 🏆
+    st.header("🏆 Match Winning Patterns: The Rise and Fall of Teams")
+    st.markdown("""
+        Finally, Rohan decided to dive into the timeline of match wins. He wondered: Were there any winning streaks? Which teams dominated over time? What patterns did he discover?
+    """)
+    
+    wins_over_time = data["matches"].groupby(["Match Date", "Winner"]).size().reset_index(name="Win Count")
+    fig_match_wins_time = px.line(wins_over_time, x="Match Date", y="Win Count", color="Winner", title="Team Wins Over Time")
+    st.plotly_chart(fig_match_wins_time)
+
+    st.markdown("""
+        **Rohan's Realization:** By tracking team wins over time, Rohan noticed periods when some teams seemed to dominate the competition. Could these be indicators of rising or falling teams? What do you think influenced these changes?
+
+        **Your Challenge:** Take a guess – which team had the longest winning streak during this period? Find out by exploring the chart above!
+    """)
+
+    # The Future of Cricket Analytics: What Will Rohan Discover Next? 🌟
+    st.header("🌟 The Future of Cricket Analytics: Rohan's Ongoing Adventure")
+    st.markdown("""
+        As Rohan's journey continues, he’s excited about the future of cricket analytics. With more data and better tools like Power BI and Tableau, the insights into cricket will only get deeper and more detailed. Who knows? Maybe he will discover new trends that will change the way we view the game forever! 🚀
+    """)
+
+    # 5. Integrating Power BI & Tableau Dashboards 📊
+    st.header("📊 Power BI Dashboard: A More Detailed Adventure")
+    st.markdown("""
+        Want to explore even more data? Rohan invites you to explore his Power BI dashboard for a deeper dive into cricket stats. Click below to see what’s in store!
+    """)
+    power_bi_link = "https://app.powerbi.com/view?r=eyJrIjoiYjk2ZmI3NjYtMTI3OC00MmYxLWE0MGEtYjllZjQ3NTE0MTUzIiwidCI6IjcwZGUxOTkyLTA3YzYtNDgwZi1hMzE4LWExYWZjYmEwMzk4MyIsImMiOjN9"  # Replace with your Power BI embed link
+    st.components.v1.iframe(power_bi_link, height=600, scrolling=True)
+
+    # Tableau Dashboards 📈
+    st.header("📈 Tableau Dashboard: Interact with the Data")
+    st.markdown("""
+        Want a truly interactive experience? Rohan’s Tableau dashboard will give you a hands-on exploration of all the stats and patterns he discovered. Dive in!
+    """)
+    tableau_link = "YOUR_TABLEAU_EMBED_LINK_HERE"  # Replace with your Tableau embed link
+    st.components.v1.iframe(tableau_link, height=600, scrolling=True)
+
+    # Conclusion: Rohan’s Unstoppable Curiosity 🌠
+    st.markdown("""
+        ## The Ever-Evolving Cricket Analytics Adventure 🌟
+        Rohan's journey with cricket data has just begun. Who knows where his curiosity will take him next? One thing’s for sure – the world of cricket data is full of endless possibilities, and Rohan is ready to explore them all. Join him on this crazy ride! 🎢
+    """)
+
+    # Download all figures for users
+    st.sidebar.download_button(
+        label="Download IPL Team Spending Chart",
+        data=save_fig_as_image(fig_ipl_spending),
+        file_name="ipl_team_spending.png",
+        mime="image/png"
+    )
+    st.sidebar.download_button(
+        label="Download Runs vs Strike Rate Chart",
+        data=save_fig_as_image(fig_batting_runs_strike),
+        file_name="runs_vs_strike_rate.png",
+        mime="image/png"
+    )
+    st.sidebar.download_button(
+        label="Download Economy Rate Chart",
+        data=save_fig_as_image(fig_bowling_economy),
+        file_name="economy_rate_by_team.png",
+        mime="image/png"
+    )
+    st.sidebar.download_button(
+        label="Download Team Wins Over Time Chart",
+        data=save_fig_as_image(fig_match_wins_time),
+        file_name="team_wins_over_time.png",
+        mime="image/png"
+    )
