@@ -92,7 +92,7 @@ After setting up the dependencies and datasets:
 3. The app should open in your default web browser.
 
 ##Demo
-![Screenshot (109)](https://github.com/user-attachments/assets/e0eee2c7-16d2-4567-8e74-b7ce16937b7f)
+
 
 
 ## App Interface
