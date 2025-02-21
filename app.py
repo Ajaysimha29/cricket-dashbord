@@ -105,7 +105,7 @@ if selected == "Home":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://i0.wp.com/wallpaperxyz.com/wp-content/uploads/Gif-Animated-Wallpaper-Background-Full-HD-Free-Download-for-PC-Macbook-261121-Wallpaperxyz.com-19.gif");
+        background-image: url("https://th.bing.com/th/id/R.5fee8e4a9fea271529cfd8828dd990d5?rik=gH%2fNteMTj1TfbQ&riu=http%3a%2f%2forig04.deviantart.net%2f9923%2ff%2f2015%2f321%2f9%2fd%2fblue_balcony_by_kirokaze-d9h03vb.gif&ehk=mQRTbt4NwHDRKqkTvHIyMKqqw0%2fuAwfO%2btkRchDiQao%3d&risl=&pid=ImgRaw&r=0");
         background-size: cover;
     }
     </style>
@@ -165,7 +165,7 @@ if selected == "IPL Analysis":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
+        background-image: url("https://i.pinimg.com/originals/c9/4c/e7/c94ce78d80c07480d25f7acafddc15d8.gif");
         background-size: cover;
     }
     </style>
@@ -213,7 +213,7 @@ elif selected == "World Cup Batting":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
+        background-image: url("https://i.pinimg.com/originals/c9/4c/e7/c94ce78d80c07480d25f7acafddc15d8.gif");
         background-size: cover;
     }
     </style>
@@ -274,7 +274,7 @@ elif selected == "World Cup Bowling":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
+        background-image: url("https://i.pinimg.com/originals/c9/4c/e7/c94ce78d80c07480d25f7acafddc15d8.gif");
         background-size: cover;
     }
     </style>
@@ -333,7 +333,7 @@ elif selected == "Match Analysis":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
+        background-image: url("https://i.pinimg.com/originals/c9/4c/e7/c94ce78d80c07480d25f7acafddc15d8.gif");
         background-size: cover;
     }
     </style>
@@ -408,12 +408,18 @@ def cricket_quiz():
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
-        background-size: cover;
+        background-image: url("https://media1.giphy.com/media/9m4yAf60N6uRcLiWFU/giphy.gif");
+        background-position: right center;  /* Align the image to the right */
+        background-repeat: no-repeat;  /* Prevent the GIF from repeating */
+        background-size: ;  /* Scale the GIF to fit within the container */
+        height: 100vh;
     }
     </style>
     """
     st.markdown(page_element, unsafe_allow_html=True)
+
+    
+    
     st.subheader("Test Your Knowledge")
 
     # Initialize session state for tracking answers, score, and question index
@@ -480,8 +486,11 @@ elif selected == "Memes & GIFs":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
-        background-size: cover;
+        background-image: url("https://media1.tenor.com/m/YgBHa5IgmhwAAAAC/aggressive-trending.gif");
+        background-position: right center; /* Aligns the image to the right */
+        background-size: auto; /* Ensures the background image covers the entire height */
+        height: 100vh; /* Makes the container take the full height of the screen */
+        background-repeat: no-repeat; /* Prevents the background from repeating */
     }
     </style>
     """
@@ -489,7 +498,7 @@ elif selected == "Memes & GIFs":
     meme_urls = [
         #"https://media1.tenor.com/m/dq4CBxSKxawAAAAd/striker-saini.gif"  # Cricket batsman hit
         "https://media1.tenor.com/m/DEiXgXvrHzgAAAAC/dhoni-gif.gif",  # Umpire gesture
-        #"https://media1.tenor.com/m/uhmCKHPRp_oAAAAC/risers-with-buland-soch-cricket.gif",  # Players hugging
+        "https://media.tenor.com/w8mhB_o1iAUAAAAC/out-gif.gif",  # Players hugging
         #"https://media1.tenor.com/m/l1iKhSUAdRoAAAAC/cheating-at-cricket-do-not-scratch-your-balls.gif",  # Cricket catch
     ]
 
@@ -510,7 +519,7 @@ elif selected == "Player Performance Correlation":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
+        background-image: url("https://wallpaperaccess.com/full/3076836.jpg");
         background-size: cover;
     }
     </style>
@@ -571,7 +580,7 @@ elif selected == "Visualized Story":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://i.pinimg.com/originals/77/ca/a3/77caa32884d735d439ade45ba37feaf2.gif");
+        background-image: url("https://wallpaperaccess.com/full/1878537.jpg");
         background-size: cover;
     }
     </style>
