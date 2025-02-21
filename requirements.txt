@@ -4,5 +4,4 @@ plotly
 matplotlib
 seaborn
 plotly-express
-plotly-io
 streamlit-option-menu
