@@ -15,15 +15,15 @@ from streamlit_option_menu import option_menu  # Import for better sideb
 st.set_page_config(page_title="🏏 Cricket Analytics Dashboard", layout="wide")
 
 # 📌 Set dataset directory
-dataset_dir = "C:/Users/ajayj/Desktop/courses/data viz/archive"
+dataset_dir = "C:/Users/ajayj/Desktop/courses/data viz/data"
 
 # 📌 Define dataset paths
 dataset_paths = {
-    "ipl": os.path.join(dataset_dir, "IPL dataset final.csv"),
-    "bat": os.path.join(dataset_dir, "BATTING.csv"),
-    "bow": os.path.join(dataset_dir, "BOWLING.csv"),
-    "matches": os.path.join(dataset_dir, "Cricket_WC23.csv"),
-    "players": os.path.join(dataset_dir, "PLAYERS_INFO.csv")
+    "ipl": os.path.join(dataset_dir, "ipl.csv"),
+    "bat": os.path.join(dataset_dir, "bat.csv"),
+    "bow": os.path.join(dataset_dir, "bow.csv"),
+    "matches": os.path.join(dataset_dir, "matches.csv"),
+    "players": os.path.join(dataset_dir, "players.csv")
 }
 
 # Load datasets
@@ -105,7 +105,7 @@ if selected == "Home":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://th.bing.com/th/id/R.5fee8e4a9fea271529cfd8828dd990d5?rik=gH%2fNteMTj1TfbQ&riu=http%3a%2f%2forig04.deviantart.net%2f9923%2ff%2f2015%2f321%2f9%2fd%2fblue_balcony_by_kirokaze-d9h03vb.gif&ehk=mQRTbt4NwHDRKqkTvHIyMKqqw0%2fuAwfO%2btkRchDiQao%3d&risl=&pid=ImgRaw&r=0");
+        background-image: url("https://i.pinimg.com/originals/0c/e9/02/0ce90263bde405e21c544de46982006a.gif");
         background-size: cover;
     }
     </style>
@@ -165,8 +165,15 @@ if selected == "IPL Analysis":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://i.pinimg.com/originals/c9/4c/e7/c94ce78d80c07480d25f7acafddc15d8.gif");
-        background-size: cover;
+        background-image: url("https://s32-hzfi.freeconvert.com/task/67ead0b930920e78fc3c3707/merged.gif");
+    .rotating-gif {
+    display: block;
+    margin: auto;
+    width: 250px;  /* Adjust size */
+    height: auto;
+    animation: slow-rotate 10s linear infinite;
+    }
+
     }
     </style>
     """
@@ -213,7 +220,7 @@ elif selected == "World Cup Batting":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://i.pinimg.com/originals/c9/4c/e7/c94ce78d80c07480d25f7acafddc15d8.gif");
+        background-image: url("https://png.pngtree.com/thumb_back/fw800/background/20240324/pngtree-cricket-background-logo-image_15687146.jpg");
         background-size: cover;
     }
     </style>
@@ -235,11 +242,12 @@ elif selected == "World Cup Batting":
      
     
     st.subheader("Four and Sixes")
-
+    
 # Creating a 3D scatter plot
     fig = px.scatter_3d(data["bat"], x="RUNS", y="FOURS", z="SIXES", 
                      color="BATTING_TEAM", hover_data=["BATTING"],
                      title="Runs vs Fours vs Sixes by Players")
+
 
 # Displaying the figure in Streamlit
     st.plotly_chart(fig)
@@ -596,7 +604,21 @@ elif selected == "Visualized Story":
     # 1. Rohan Discovers IPL Auctions 💰
     st.header("💰 IPL Auctions: Rohan's First Glimpse into the Strategy of Teams")
     st.markdown("""
-        Rohan was fascinated by how IPL teams bid for players. He started analyzing the data and discovered some interesting trends. Some teams spent big, while others were more conservative. What could this mean? Was there a strategy behind this spending? 🤔
+        Rohon’s IPL Discovery Journey
+
+       Rohon was never much into cricket, but one day, he overheard his friends passionately debating IPL team strategies. Curious, he decided to explore what made IPL so exciting. He started with the basics—learning about the teams, their star players, and, most importantly, how team owners spend big money on players during auctions.
+
+One evening, he came across a chart that showed how much each IPL team spent on players. At first glance, it looked like a colorful bar graph, but as he dived deeper, he noticed some interesting patterns.
+
+Some teams, like Sunrisers Hyderabad (SRH) and Rajasthan Royals (RR), spent the most, stacking their squads with expensive players.
+
+Others, like Chennai Super Kings (CSK) and Delhi Capitals (DC), had more conservative spending, possibly relying on experienced players rather than buying new ones.
+
+Teams like Mumbai Indians (MI) and Royal Challengers Bangalore (RCB) had a balanced approach—spending well but not going overboard.
+
+Rohon realized that IPL auctions are like a high-stakes strategy game, where teams invest smartly to build their dream squads. With this newfound knowledge, he could finally join his friends' cricket debates, impressing them with insights into how money shapes the IPL teams!
+
+And just like that, Rohon wasn’t just a casual viewer anymore—he was hooked on the IPL!🤔
     """)
     
     team_spending = data["ipl"].groupby("TEAM")["SOLD_PRICE"].sum().reset_index()
