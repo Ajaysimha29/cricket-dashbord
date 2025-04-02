@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import plotly.subplots as sp
 import os
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -161,11 +162,12 @@ if selected == "Home":
 if selected == "IPL Analysis":
     st.title("📊 IPL Analytics")
     
+    
     # Define page background image with CSS
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://s32-hzfi.freeconvert.com/task/67ead0b930920e78fc3c3707/merged.gif");
+        background-image: url("https://s93-ious.freeconvert.com/task/67ed5995d5a34f0a354fd647/merged.gif");
     .rotating-gif {
     display: block;
     margin: auto;
@@ -178,7 +180,7 @@ if selected == "IPL Analysis":
     </style>
     """
     st.markdown(page_element, unsafe_allow_html=True)
-
+    
     # IPL Analysis: Player Sold Prices
     st.subheader("Player Sold Prices")
     fig1 = px.histogram(data["ipl"], x="SOLD_PRICE", nbins=20, title="Distribution of IPL Player Sold Prices")
@@ -189,6 +191,69 @@ if selected == "IPL Analysis":
     team_spending = data["ipl"].groupby("TEAM")["SOLD_PRICE"].sum().reset_index()
     fig2 = px.bar(team_spending, x="TEAM", y="SOLD_PRICE", title="Total Spending by IPL Teams", color="TEAM")
     st.plotly_chart(fig2)
+    
+     
+    #st.write(data["ipl"].head()) 
+    #st.write(data["ipl"]["SOLD_PRICE"].head())  # Debugging step
+    # Remove commas and convert to numeric
+    #data["ipl"]["SOLD_PRICE"] = data["ipl"]["SOLD_PRICE"].astype(str).str.replace(",", "")
+    #data["ipl"]["SOLD_PRICE"] = pd.to_numeric(data["ipl"]["SOLD_PRICE"], errors="coerce")
+
+# Drop rows with NaN SOLD_PRICE values
+    #data["ipl"].dropna(subset=["SOLD_PRICE"], inplace=True)
+
+    #st.write(data["ipl"]["SOLD_PRICE"].head())  # Verify cleaned data
+
+    #st.subheader("Total Spending by IPL Teams")
+    #data["ipl"]["SOLD_PRICE"] = data["ipl"]["SOLD_PRICE"].astype(str).str.replace("cr", "", regex=False).astype(float)
+    #team_spending = data["ipl"].groupby("TEAM")["SOLD_PRICE"].sum().reset_index()
+    #fig3 = px.scatter(team_spending, 
+                 #x="TEAM", 
+                 #y="SOLD_PRICE", 
+                 #size="SOLD_PRICE",  # Bubble size
+                 #color="TEAM",  # Different colors for teams
+                 #title="Total Spending by IPL Teams",
+                 #hover_name="TEAM", 
+                 #size_max=60)
+    #st.plotly_chart(fig3)
+    st.write(data["ipl"].head())
+    st.write(data["ipl"]["SOLD_PRICE"].head())  # Debugging step
+
+    def convert_price_to_float(price_str):
+     price_str = str(price_str).lower()  # Convert to lowercase for easier handling
+
+     if "cr" in price_str:
+         price_str = price_str.replace("cr", "")
+         return float(price_str) * 10000000  # Convert crores to float
+     elif "l" in price_str:
+         price_str = price_str.replace("l", "")
+         return float(price_str) * 100000  # Convert lakhs to float
+     else:
+         try:
+            return float(price_str)  # If no 'cr' or 'l', try direct conversion
+         except ValueError:
+            return None  # Return None for invalid values
+
+# Apply the conversion function to the 'SOLD_PRICE' column
+    data["ipl"]["SOLD_PRICE"] = data["ipl"]["SOLD_PRICE"].apply(convert_price_to_float)
+
+# Drop rows with NaN SOLD_PRICE values after conversion.
+    data["ipl"].dropna(subset=["SOLD_PRICE"], inplace=True)
+
+    st.write(data["ipl"]["SOLD_PRICE"].head())  # Verify cleaned data
+
+    st.subheader("Total Spending by IPL Teams")
+    team_spending = data["ipl"].groupby("TEAM")["SOLD_PRICE"].sum().reset_index()
+    fig3 = px.scatter(team_spending,
+                 x="TEAM",
+                 y="SOLD_PRICE",
+                 size="SOLD_PRICE",
+                 color="TEAM",
+                 title="Total Spending by IPL Teams",
+                 hover_name="TEAM",
+                 size_max=60)
+    st.plotly_chart(fig3)
+
 
     # Download button for IPL dataset
     st.sidebar.download_button(
@@ -244,9 +309,29 @@ elif selected == "World Cup Batting":
     st.subheader("Four and Sixes")
     
 # Creating a 3D scatter plot
-    fig = px.scatter_3d(data["bat"], x="RUNS", y="FOURS", z="SIXES", 
-                     color="BATTING_TEAM", hover_data=["BATTING"],
-                     title="Runs vs Fours vs Sixes by Players")
+    #fig = px.scatter_3d(data["bat"], x="RUNS", y="FOURS", z="SIXES", 
+                     #color="BATTING_TEAM", hover_data=["BATTING"],
+                     #title="Runs vs Fours vs Sixes by Players")
+    
+    # Create two subplots
+    fig = sp.make_subplots(rows=1, cols=2, subplot_titles=("Runs vs Fours", "Runs vs Sixes"), 
+                        horizontal_spacing=0.15)
+
+# First plot: Runs vs Fours
+    scatter1 = px.scatter(data["bat"], x="RUNS", y="FOURS", color="BATTING_TEAM", hover_data=["BATTING"])
+    for trace in scatter1.data:
+      fig.add_trace(trace, row=1, col=1)
+
+# Second plot: Runs vs Sixes
+    scatter2 = px.scatter(data["bat"], x="RUNS", y="SIXES", color="BATTING_TEAM", hover_data=["BATTING"])
+    for trace in scatter2.data:
+      fig.add_trace(trace, row=1, col=2)
+
+# Update layout
+    fig.update_layout(title_text="Runs vs Fours and Runs vs Sixes", showlegend=True)
+    fig.show()
+     
+    
 
 
 # Displaying the figure in Streamlit
@@ -282,7 +367,7 @@ elif selected == "World Cup Bowling":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://i.pinimg.com/originals/c9/4c/e7/c94ce78d80c07480d25f7acafddc15d8.gif");
+        background-image: url("https://png.pngtree.com/thumb_back/fw800/background/20240324/pngtree-cricket-background-logo-image_15687146.jpg");
         background-size: cover;
     }
     </style>
@@ -341,7 +426,7 @@ elif selected == "Match Analysis":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://i.pinimg.com/originals/c9/4c/e7/c94ce78d80c07480d25f7acafddc15d8.gif");
+        background-image: url("https://png.pngtree.com/thumb_back/fw800/background/20240324/pngtree-cricket-background-logo-image_15687146.jpg");
         background-size: cover;
     }
     </style>
@@ -594,6 +679,12 @@ elif selected == "Visualized Story":
     </style>
     """
     st.markdown(page_element, unsafe_allow_html=True)
+    # Add Manga-Style Image of Rohan's Journey
+    st.image(r"C:\Users\ajayj\Desktop\courses\data viz\cccc.png",caption="Rohan's Journey into Cricket",use_container_width =True)
+    st.image(r"C:\Users\ajayj\Desktop\courses\data viz\ChatGPT Image Mar 31, 2025, 11_38_28 PM.png", 
+         caption="Rohan's Journey into Cricket Data", 
+         use_container_width =True)
+    
 
     # Introduction
     st.markdown("""
@@ -690,19 +781,7 @@ And just like that, Rohon wasn’t just a casual viewer anymore—he was hooked 
     power_bi_link = "https://app.powerbi.com/view?r=eyJrIjoiYjk2ZmI3NjYtMTI3OC00MmYxLWE0MGEtYjllZjQ3NTE0MTUzIiwidCI6IjcwZGUxOTkyLTA3YzYtNDgwZi1hMzE4LWExYWZjYmEwMzk4MyIsImMiOjN9"  # Replace with your Power BI embed link
     st.components.v1.iframe(power_bi_link, height=600, scrolling=True)
 
-    # Tableau Dashboards 📈
-    st.header("📈 Tableau Dashboard: Interact with the Data")
-    st.markdown("""
-        Want a truly interactive experience? Rohan’s Tableau dashboard will give you a hands-on exploration of all the stats and patterns he discovered. Dive in!
-    """)
-    tableau_link = "YOUR_TABLEAU_EMBED_LINK_HERE"  # Replace with your Tableau embed link
-    st.components.v1.iframe(tableau_link, height=600, scrolling=True)
-
-    # Conclusion: Rohan’s Unstoppable Curiosity 🌠
-    st.markdown("""
-        ## The Ever-Evolving Cricket Analytics Adventure 🌟
-        Rohan's journey with cricket data has just begun. Who knows where his curiosity will take him next? One thing’s for sure – the world of cricket data is full of endless possibilities, and Rohan is ready to explore them all. Join him on this crazy ride! 🎢
-    """)
+    
 
     # Download all figures for users
     st.sidebar.download_button(
