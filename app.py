@@ -380,14 +380,21 @@ elif selected == "World Cup Bowling":
     
     st.subheader("Top 10 Wicket-Takers")
     top_wickets = data["bow"].groupby("BOWLING")["WICKETS"].sum().nlargest(10).reset_index()
-    fig8 = px.bar(top_wickets, x="BOWLING", y="WICKETS", title="Top 10 Wicket-Takers")
+    #fig8 = px.bar(top_wickets, x="BOWLING", y="WICKETS", title="Top 10 Wicket-Takers")
+    #st.plotly_chart(fig8)
+    fig8 = px.treemap(top_wickets, path=['BOWLING'], values='WICKETS',
+                            title='Top 10 Wicket-Takers (Treemap)')
     st.plotly_chart(fig8)
+ 
 
     # Additional Bowling Insights
     st.subheader("Top 5 Best Economy Rate Bowlers")
     top_economy_bowlers = data["bow"].nsmallest(5, "ECONOMY")[["BOWLING", "ECONOMY"]]
-    fig9 = px.bar(top_economy_bowlers, x="BOWLING", y="ECONOMY", title="Top 5 Best Economy Rate Bowlers", color="BOWLING")
-    st.plotly_chart(fig9)
+    fig9_dot = px.strip(top_economy_bowlers, x="ECONOMY", y="BOWLING", 
+                      title="Top 5 Best Economy Rate Bowlers (Dot Plot)",
+                      orientation='h',  # Horizontal orientation for better readability
+                      color="BOWLING")
+    st.plotly_chart(fig9_dot)
 
     # Download button for Bowling dataset
     st.sidebar.download_button(
@@ -414,7 +421,7 @@ elif selected == "World Cup Bowling":
 
     st.sidebar.download_button(
         label="Download Best Economy Bowlers Chart",
-        data=save_fig_as_image(fig9),
+        data=save_fig_as_image(fig9_dot),
         file_name="top_best_economy_bowlers.png",
         mime="image/png"
     )
