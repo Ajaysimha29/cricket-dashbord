@@ -132,6 +132,7 @@ if selected == "Home":
             <li>🏏 <b>Match Analysis:</b> In-depth match statistics & trends.</li>
             <li>🎮 <b>Cricket Quiz:</b> Test your knowledge with interactive trivia! 🧠</li>
             <li>😂 <b>Memes & GIFs:</b> Enjoy cricket memes for a fun break! 🎉</li>
+            <li>😂 <b>Visualized Story:</b> 🔍 Discovering Cricket 🏏, IPL 🥇, and World Cup 🌍🏆 Data Like Never Before!</li>
         </ul>
     """, unsafe_allow_html=True)
 
@@ -167,7 +168,7 @@ if selected == "IPL Analysis":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://s93-ious.freeconvert.com/task/67ed5995d5a34f0a354fd647/merged.gif");
+        background-image: url("https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHR3NmtndWpkcmhwaDF6MDQ4Nmg5cms1b2hzc2VnenZkMHI4emVqcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pUfqPRDs7K2IiN90yG/giphy.gif");
     .rotating-gif {
     display: block;
     margin: auto;
@@ -689,9 +690,12 @@ elif selected == "Visualized Story":
     # Add Manga-Style Image of Rohan's Journey
     st.image(r"C:\Users\ajayj\Desktop\courses\data viz\cccc.png",caption="Rohan's Journey into Cricket",use_container_width =True)
     st.image(r"C:\Users\ajayj\Desktop\courses\data viz\ChatGPT Image Mar 31, 2025, 11_38_28 PM.png", 
-         caption="Rohan's Journey into Cricket Data", 
+         caption="Rohan's Journey into IPL Data", 
          use_container_width =True)
-    
+    st.image(r"C:\Users\ajayj\Desktop\courses\data viz\0.png", 
+         caption="Rohan's Journey into Wining Games ", 
+         use_container_width =True)
+    st.image(r"C:\Users\ajayj\Desktop\courses\data viz\bb.PNG",caption="Rohan Learning about World Cup Bowlers",use_container_width=True)
 
     # Introduction
     st.markdown("""
@@ -719,9 +723,12 @@ Rohon realized that IPL auctions are like a high-stakes strategy game, where tea
 And just like that, Rohon wasn’t just a casual viewer anymore—he was hooked on the IPL!🤔
     """)
     
-    team_spending = data["ipl"].groupby("TEAM")["SOLD_PRICE"].sum().reset_index()
-    fig_ipl_spending = px.bar(team_spending, x="TEAM", y="SOLD_PRICE", title="Total Spending by IPL Teams", color="TEAM")
-    st.plotly_chart(fig_ipl_spending)
+    st.subheader('Paying Role vs Sold Price')
+    fig2 = px.box(ipl, x='Paying_Role', y='SOLD_PRICE', title='Paying Role vs Sold Price', 
+                  labels={'Paying_Role': 'Paying Role', 'SOLD_PRICE': 'Sold Price'}, 
+                  color='Paying_Role', color_discrete_sequence=px.colors.qualitative.Set2)
+    fig2.update_layout(xaxis_tickangle=-45)  # Rotate x-axis labels for better readability
+    st.plotly_chart(fig2)
 
     st.markdown("""
         **Key Takeaway:** Rohan noticed that teams like Mumbai Indians and Chennai Super Kings spent a lot, while others took a more balanced approach. It was clear that team strategies and budget management played a big role in IPL success. 💡
@@ -758,21 +765,7 @@ And just like that, Rohon wasn’t just a casual viewer anymore—he was hooked 
         **Quiz Time:** Which team do you think has the best bowling attack based on the economy rate? Drop your guesses below!
     """)
 
-    # 4. The Battle of Wins: Rohan Follows the Winning Streaks 🏆
-    st.header("🏆 Match Winning Patterns: The Rise and Fall of Teams")
-    st.markdown("""
-        Finally, Rohan decided to dive into the timeline of match wins. He wondered: Were there any winning streaks? Which teams dominated over time? What patterns did he discover?
-    """)
     
-    wins_over_time = data["matches"].groupby(["Match Date", "Winner"]).size().reset_index(name="Win Count")
-    fig_match_wins_time = px.line(wins_over_time, x="Match Date", y="Win Count", color="Winner", title="Team Wins Over Time")
-    st.plotly_chart(fig_match_wins_time)
-
-    st.markdown("""
-        **Rohan's Realization:** By tracking team wins over time, Rohan noticed periods when some teams seemed to dominate the competition. Could these be indicators of rising or falling teams? What do you think influenced these changes?
-
-        **Your Challenge:** Take a guess – which team had the longest winning streak during this period? Find out by exploring the chart above!
-    """)
 
     # The Future of Cricket Analytics: What Will Rohan Discover Next? 🌟
     st.header("🌟 The Future of Cricket Analytics: Rohan's Ongoing Adventure")
@@ -792,8 +785,8 @@ And just like that, Rohon wasn’t just a casual viewer anymore—he was hooked 
 
     # Download all figures for users
     st.sidebar.download_button(
-        label="Download IPL Team Spending Chart",
-        data=save_fig_as_image(fig_ipl_spending),
+        label="Download paying Spending Chart",
+        data=save_fig_as_image(fig2),
         file_name="ipl_team_spending.png",
         mime="image/png"
     )
@@ -809,9 +802,5 @@ And just like that, Rohon wasn’t just a casual viewer anymore—he was hooked 
         file_name="economy_rate_by_team.png",
         mime="image/png"
     )
-    st.sidebar.download_button(
-        label="Download Team Wins Over Time Chart",
-        data=save_fig_as_image(fig_match_wins_time),
-        file_name="team_wins_over_time.png",
-        mime="image/png"
-    )
+ 
+    
