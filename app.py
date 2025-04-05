@@ -16,7 +16,7 @@ from streamlit_option_menu import option_menu  # Import for better sideb
 st.set_page_config(page_title="🏏 Cricket Analytics Dashboard", layout="wide")
 
 # 📌 Set dataset directory
-dataset_dir = "C:/Users/ajayj/Desktop/courses/data viz/data"
+dataset_dir = "data"
 
 # 📌 Define dataset paths
 dataset_paths = {
@@ -688,14 +688,14 @@ elif selected == "Visualized Story":
     """
     st.markdown(page_element, unsafe_allow_html=True)
     # Add Manga-Style Image of Rohan's Journey
-    st.image(r"C:\Users\ajayj\Desktop\courses\data viz\cccc.png",caption="Rohan's Journey into Cricket",use_container_width =True)
-    st.image(r"C:\Users\ajayj\Desktop\courses\data viz\ChatGPT Image Mar 31, 2025, 11_38_28 PM.png", 
+    st.image(r"assets/1.png",caption="Rohan's Journey into Cricket",use_container_width =True)
+    st.image(r"assets/2.png", 
          caption="Rohan's Journey into IPL Data", 
          use_container_width =True)
-    st.image(r"C:\Users\ajayj\Desktop\courses\data viz\0.png", 
+    st.image(r"assets/3.png", 
          caption="Rohan's Journey into Wining Games ", 
          use_container_width =True)
-    st.image(r"C:\Users\ajayj\Desktop\courses\data viz\bb.PNG",caption="Rohan Learning about World Cup Bowlers",use_container_width=True)
+    st.image(r"assets/4.png",caption="Rohan Learning about World Cup Bowlers",use_container_width=True)
 
     # Introduction
     st.markdown("""
