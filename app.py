@@ -695,7 +695,7 @@ elif selected == "Visualized Story":
     st.image(r"assets/3.png", 
          caption="Rohan's Journey into Wining Games ", 
          use_container_width =True)
-    st.image(r"assets/4.png",caption="Rohan Learning about World Cup Bowlers",use_container_width=True)
+    st.image(r"assets/4.PNG",caption="Rohan Learning about World Cup Bowlers",use_container_width=True)
 
     # Introduction
     st.markdown("""
