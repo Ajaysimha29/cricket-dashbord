@@ -5,3 +5,5 @@ matplotlib
 seaborn
 plotly-express
 streamlit-option-menu
+kaleido
+
