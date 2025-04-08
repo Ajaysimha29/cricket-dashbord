@@ -132,7 +132,7 @@ if selected == "Home":
             <li>🏏 <b>Match Analysis:</b> In-depth match statistics & trends.</li>
             <li>🎮 <b>Cricket Quiz:</b> Test your knowledge with interactive trivia! 🧠</li>
             <li>😂 <b>Memes & GIFs:</b> Enjoy cricket memes for a fun break! 🎉</li>
-            <li>😂 <b>Visualized Story:</b> 🔍 Discovering Cricket 🏏, IPL 🥇, and World Cup 🌍🏆 Data Like Never Before!</li>
+            <li>🔍<b>Visualized Story:</b> 🔍 Discovering Cricket 🏏, IPL 🥇, and World Cup 🌍🏆 Data Like Never Before!</li>
         </ul>
     """, unsafe_allow_html=True)
 
