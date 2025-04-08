@@ -168,7 +168,7 @@ if selected == "IPL Analysis":
     page_element = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHR3NmtndWpkcmhwaDF6MDQ4Nmg5cms1b2hzc2VnenZkMHI4emVqcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pUfqPRDs7K2IiN90yG/giphy.gif");
+        background-image: url("https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTBsb2I1ZzB5dnM0MTZuMWNjMGVpcnVpcGU0NWx6d2l5aDg4aW0xbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/eRvkqAGhT7cPn8ALDv/giphy.gif");
     .rotating-gif {
     display: block;
     margin: auto;
