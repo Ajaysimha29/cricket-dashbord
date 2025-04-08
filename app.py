@@ -175,6 +175,7 @@ if selected == "IPL Analysis":
     width: 250px;  /* Adjust size */
     height: auto;
     animation: slow-rotate 10s linear infinite;
+    transition: 0.7s;
     }
 
     }
