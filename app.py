@@ -177,7 +177,12 @@ if selected == "IPL Analysis":
     animation: slow-rotate 10s linear infinite;
     transition: 0.7s;
     }
-
+    h1 {
+    background-color: #c8c8c8;
+    color: #b44343;
+    opacity: 0.9;
+    border-radius: 11px;
+    }
     }
     </style>
     """
