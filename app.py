@@ -303,6 +303,7 @@ elif selected == "World Cup Batting":
     st.plotly_chart(fig4)
     
     st.subheader("Runs Distribution by Team")
+    st.audio("assets/box.mp3")
     fig5 = px.box(data["bat"], x="BATTING_TEAM", y="RUNS", title="Runs Distribution by Team")
     st.plotly_chart(fig5)
 
