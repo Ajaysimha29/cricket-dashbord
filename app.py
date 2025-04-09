@@ -629,10 +629,11 @@ elif selected == "Player Performance Correlation":
     st.plotly_chart(fig1)
 
     # Create Paying Role vs Sold Price box plot using Plotly
-    st.subheader('Paying Role vs Sold Price')
-    fig2 = px.box(ipl, x='Paying_Role', y='SOLD_PRICE', title='Paying Role vs Sold Price', 
-                  labels={'Paying_Role': 'Paying Role', 'SOLD_PRICE': 'Sold Price'}, 
-                  color='Paying_Role', color_discrete_sequence=px.colors.qualitative.Set2)
+    st.subheader('Playing Role vs Sold Price')
+    st.audio("assets/play.mp3")
+    fig2 = px.box(ipl, x='Playing_Role', y='SOLD_PRICE', title='Playing Role vs Sold Price', 
+                  labels={'Playing_Role': 'Playing Role', 'SOLD_PRICE': 'Sold Price'}, 
+                  color='Playing_Role', color_discrete_sequence=px.colors.qualitative.Set2)
     fig2.update_layout(xaxis_tickangle=-45)  # Rotate x-axis labels for better readability
     st.plotly_chart(fig2)
 
