@@ -451,16 +451,16 @@ elif selected == "Match Analysis":
     fig10 = px.pie(names=team_wins.index, values=team_wins.values, title="World Cup Wins by Teams")
     st.plotly_chart(fig10)
     
-    st.subheader("Team Wins Over Time")
-    wins_over_time = data["matches"].groupby(["Match Date", "Winner"]).size().reset_index(name="Win Count")
-    fig11 = px.line(wins_over_time, x="Match Date", y="Win Count", color="Winner", title="Team Wins Over Time")
-    st.plotly_chart(fig11)
+    #st.subheader("Team Wins Over Time")
+    #wins_over_time = data["matches"].groupby(["Match Date", "Winner"]).size().reset_index(name="Win Count")
+    #fig11 = px.line(wins_over_time, x="Match Date", y="Win Count", color="Winner", title="Team Wins Over Time")
+    #st.plotly_chart(fig11)
 
     # Additional Match Insights
-    st.subheader("Match Result by Date")
-    result_by_date = data["matches"].groupby("Match Date")["Winner"].value_counts().unstack().fillna(0)
-    fig12 = px.line(result_by_date, x=result_by_date.index, title="Match Result by Date")
-    st.plotly_chart(fig12)
+    #st.subheader("Match Result by Date")
+    #result_by_date = data["matches"].groupby("Match Date")["Winner"].value_counts().unstack().fillna(0)
+    #fig12 = px.line(result_by_date, x=result_by_date.index, title="Match Result by Date")
+    #st.plotly_chart(fig12)
 
     # Download button for Match dataset
     st.sidebar.download_button(
