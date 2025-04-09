@@ -484,19 +484,7 @@ elif selected == "Match Analysis":
         mime="image/png"
     )
 
-    st.sidebar.download_button(
-        label="Download Team Wins Over Time Chart",
-        data=save_fig_as_image(fig11),
-        file_name="team_wins_over_time.png",
-        mime="image/png"
-    )
-
-    st.sidebar.download_button(
-        label="Download Match Result by Date Chart",
-        data=save_fig_as_image(fig12),
-        file_name="match_result_by_date.png",
-        mime="image/png"
-    )
+    
 
     st.sidebar.download_button(
         label="Download Matches Played Over Time Chart",
